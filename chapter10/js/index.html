@@ -8,11 +8,36 @@
   </style>
   <script>
     $(function() {
-      
+
     });
   </script>
 </head>
 <body>
-  
+  <div id="root" class="invisible">
+    <div string="짖습니까?">
+      <div string="개"></div>
+      <div string="고양이"></div>
+    </div>
+  </div>
+
+  <div id="dialog">
+
+  </div>
+
+  <div id="what-is-it" class="start-hidden">
+    <input id="what" type="text" />
+    <button id="done-what">이름 입력 완료</button>
+  </div>
+
+  <div id="new-question" class="start-hidden">
+    <span id="new"></span>와(과) <span id="old"></span>을(를) 구분하기 위해 던질 수 있는 질문이 무엇입니까? 답은 "예"여야 합니다.
+    <input id="question" type="text" />
+    <button id="done-question">답 입력 완료</button>
+  </div>
+
+  <div id="yes-no" class="start-hidden">
+    <button id="yes">예</button>
+    <button id="no">아니오</button>
+  </div>
 </body>
 </html>
