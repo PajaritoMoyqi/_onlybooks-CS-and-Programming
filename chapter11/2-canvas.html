@@ -86,12 +86,15 @@
 
           var m = $("#y").val() / width;
 
+          var y = 0;
+
           canvas.fillStyle = "rgb(0,0,0)";
 
           for (var x=0; x<=width; x++) {
             canvas.beginPath();
-            canvas.arc(x, Math.round(x*m), 0.15, 0, 2*Math.PI, 0); // 반올림
+            canvas.arc(x, Math.round(y), 0.15, 0, 2*Math.PI, 0); // 반올림
             canvas.fill();
+            y = y + m;
           }
 
           $("#y").val('');
