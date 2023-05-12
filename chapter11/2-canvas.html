@@ -19,6 +19,39 @@
 
       canvas.translate(0, height);
       canvas.scale(1, -1);
+
+      var grid = 25;
+  
+      canvas.scale(grid, grid);
+  
+      width = width/grid;
+      height = height/grid;
+      canvas.lineWidth = canvas.lineWidth/grid;
+      canvas.strokeStyle = "rgb(0,0,0)";
+  
+      function
+      clear_and_draw_grid()
+      {
+        canvas.clearRect(0, 0, width, height);
+        canvas.save();
+        canvas.setLineDash([0.1, 0.1]);
+        canvas.strokeStyle = "rgb(128,128,128)";
+        canvas.beginPath();
+    
+        for (var i=1; i<width; i++) {
+          canvas.moveTo(0, i);
+          canvas.lineTo(height, i);
+        }
+        for (var i=1; i<width; i++) {
+          canvas.moveTo(i, 0);
+          canvas.lineTo(i, width);
+        }
+  
+        canvas.stroke();
+        canvas.restore();
+      }
+  
+      clear_and_draw_grid();
     });
   </script>
 </head>
