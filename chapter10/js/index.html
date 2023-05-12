@@ -7,6 +7,37 @@
 
   </style>
   <script>
+    var node;
+
+    function
+    question(new_node, html)
+    {
+      $('#dialog').append(html);
+
+      if ($(new_node).length == 0) {
+        return true;
+      }
+      else {
+        node = new_node;
+
+        if ($(node).children().length == 0)
+          $('#dialog').append($(node).attr('string') + '입니까?');
+        else
+          $('#dialog').append($(node).attr('string') + '?');
+
+        return false
+      }
+    }
+
+    function
+    restart()
+    {
+      $('.start-hidden').hide();
+      $('#question,#what').val('');
+      question($('#root>div'), '<div><b>동물을 생각해보세요.</b></div>');
+      $('#yesno').show();
+    }
+
     $(function() {
 
     });
