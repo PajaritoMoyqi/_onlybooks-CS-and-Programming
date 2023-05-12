@@ -39,7 +39,37 @@
     }
 
     $(function() {
+      restart();
 
+      $('#done-question').click(function() {
+        $(node).wrap('<div string="' + $('#question').val() + '"></div>');
+        $(node).parent().prepend('<div string="' + $('#what').val() + '"></div>');
+        $('#dialog').append("<div>고맙습니다. 기억하겠습니다.</div><p>");
+        restart();
+      });
+
+      $('#done-what').click(function() {
+        $('#what-is-it').hide();
+        $('#new').text($('#what').val());
+        $('#old').text($(node).attr('string'));
+        $('#new-question').show();
+        $('#dialog div:last').append(' <i>' + $('#what').val() + '</i>');
+      });
+
+      $('#yes').click(function() {
+        if (question($(node).children(':first-child'), '<i>예</i><br>')) {
+          $('#dialog').append("<div>그럴 줄 알았습니다!</div><p>");
+          restart();
+        }
+      });
+
+      $('#no').click(function() {
+        if (question($(node).children(':last-child'), '<i>아니오</i><br>')) {
+          $('#yesno').hide();
+          $('#dialog').append('<div>졌습니다. 무슨 동물입니까?</div>');
+          $('#what-is-it').show();
+        }
+      });
     });
   </script>
 </head>
