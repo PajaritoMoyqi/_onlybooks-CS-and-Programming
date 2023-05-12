@@ -38,6 +38,20 @@
         canvas.strokeStyle = "rgb(128,128,128)";
         canvas.beginPath();
     
+        // 원
+        for (var i=1; i<height; i++) {
+          canvas.beginPath();
+          canvas.fillStyle = "rgb(255,255,0)"; // 노랑
+          canvas.arc(i, i, 0.25, 0, 2*Math.PI, 0);
+          canvas.fill();
+
+          canvas.beginPath();
+          canvas.fillStyle = "rgb(255,0,0)"; // 빨강
+          canvas.arc(i, 10, 0.2, 0, 2*Math.PI, 0);
+          canvas.fill();
+        }
+
+        // 격자
         for (var i=1; i<width; i++) {
           canvas.moveTo(0, i);
           canvas.lineTo(height, i);
@@ -46,7 +60,7 @@
           canvas.moveTo(i, 0);
           canvas.lineTo(i, width);
         }
-  
+
         canvas.stroke();
         canvas.restore();
       }
