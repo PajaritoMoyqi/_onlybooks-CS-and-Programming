@@ -39,17 +39,17 @@
         canvas.beginPath();
     
         // 원
-        for (var i=1; i<height; i++) {
-          canvas.beginPath();
-          canvas.fillStyle = "rgb(255,255,0)"; // 노랑
-          canvas.arc(i, i, 0.25, 0, 2*Math.PI, 0);
-          canvas.fill();
+        // for (var i=1; i<height; i++) {
+        //   canvas.beginPath();
+        //   canvas.fillStyle = "rgb(255,255,0)"; // 노랑
+        //   canvas.arc(i, i, 0.25, 0, 2*Math.PI, 0);
+        //   canvas.fill();
 
-          canvas.beginPath();
-          canvas.fillStyle = "rgb(255,0,0)"; // 빨강
-          canvas.arc(i, 10, 0.2, 0, 2*Math.PI, 0);
-          canvas.fill();
-        }
+        //   canvas.beginPath();
+        //   canvas.fillStyle = "rgb(255,0,0)"; // 빨강
+        //   canvas.arc(i, 10, 0.2, 0, 2*Math.PI, 0);
+        //   canvas.fill();
+        // }
 
         // 격자
         for (var i=1; i<width; i++) {
@@ -66,10 +66,50 @@
       }
   
       clear_and_draw_grid();
+
+      $('#draw').click(function() {
+        // error check
+        if($("#y").val() < 0 || $("#y").val() > height) {
+          alert('y value must be between 0 and ' + height);
+        }
+        else if (parseInt($("#y").val()) != $("#y").val()) {
+          alert('y value must be an integer');
+        }
+        // real function
+        else {
+          // 실제 그림
+          canvas.beginPath();
+          canvas.moveTo(0, 0);
+          canvas.setLineDash([0.2, 0.2]);
+          canvas.lineTo(width, $("#y").val()); 
+          canvas.stroke();
+
+          var m = $("#y").val() / width;
+
+          canvas.fillStyle = "rgb(0,0,0)";
+
+          for (var x=0; x<=width; x++) {
+            canvas.beginPath();
+            canvas.arc(x, Math.round(x*m), 0.15, 0, 2*Math.PI, 0); // 반올림
+            canvas.fill();
+          }
+
+          $("#y").val('');
+        }
+      });
+      $("#erase").click(function() {
+        clear_and_draw_grid();
+      });
     });
   </script>
 </head>
 <body>
   <canvas width="500" height="500"></canvas>
+  <div>
+    <label for="y">Y Coordinate: </label>
+    <input type="text" size="3" id="y" />
+    <button id="draw">DRAW</button>
+    <button id="erase">ERASE</button>
+  </div>
 </body>
 </html>
