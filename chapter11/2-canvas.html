@@ -84,17 +84,27 @@
           canvas.lineTo(width, $("#y").val()); 
           canvas.stroke();
 
-          var m = $("#y").val() / width;
-
+          var dx = width;
+          var dy = $("#y").val();
+          var d = 2*dy - dx
           var y = 0;
 
-          canvas.fillStyle = "rgb(0,0,0)";
+          dx*=2;
+          dy*=2;
+
+          canvas.fillStyle = "rgb(255,255,0)";
+          canvas.setLineDash([0, 0]);
 
           for (var x=0; x<=width; x++) {
             canvas.beginPath();
-            canvas.arc(x, Math.round(y), 0.15, 0, 2*Math.PI, 0); // 반올림
-            canvas.fill();
-            y = y + m;
+            canvas.arc(x, y, 0.4, 0, 2*Math.PI, 0); // 반올림
+            canvas.stroke();
+            
+            if (d >= 0) {
+              y++;
+              d -= dx;
+            }
+            d += dy;
           }
 
           $("#y").val('');
