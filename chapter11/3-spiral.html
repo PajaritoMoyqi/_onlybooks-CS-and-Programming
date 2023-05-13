@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Canvas Example</title>
+  <style>
+    canvas {
+      border: 5px solid black;
+    }
+  </style>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script>
+    $(function() {
+      var canvas = $('canvas')[0].getContext('2d');
+ 
+      var height = Number($('canvas').attr('height'));
+      var width = Number($('canvas').attr('width'));
+
+      canvas.scale(1, -1);
+      canvas.translate(width/2, -height/2);
+
+      $('#draw').click(function() {
+        if (parseFloat($("#degrees").val()) == 0) 
+          alert("Degrees must be greater than 0");
+        else {
+          for (var angle=0; angle<4*360; angle+=parseFloat($("#degrees").val())) {
+            var theta = 2*Math.PI*angle/360;
+            var r = theta*10;
+            canvas.beginPath();
+            canvas.arc(r*Math.cos(theta), r*Math.sin(theta), 3, 0, 2*Math.PI, 0);
+            canvas.fill();
+          }
+        }
+      });
+      $("#erase").click(function() {
+        canvas.clearRect(-width, -height, width*2, height*2);
+      });
+    });
+  </script>
+</head>
+<body>
+  <canvas width="500" height="500"></canvas>
+  <div>
+    <label for="degrees">Degrees: </label>
+    <input type="text" size="3" id="degrees" />
+    <button id="draw">DRAW</button>
+    <button id="erase">ERASE</button>
+  </div>
+</body>
+</html>
