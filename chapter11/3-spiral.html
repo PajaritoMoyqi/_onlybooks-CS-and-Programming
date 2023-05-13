@@ -20,17 +20,45 @@
       canvas.scale(1, -1);
       canvas.translate(width/2, -height/2);
 
-      $('#draw').click(function() {
-        canvas.beginPath();
-        canvas.moveTo(0, 0);
+      var close_enough = 10;
 
-        for (var angle=0; angle<4*360; angle+=parseFloat($("#degrees").val())) {
-          var theta = 2*Math.PI*angle/360;
-          var r = theta*10;
-          canvas.lineTo(r*Math.cos(theta), r*Math.sin(theta));
+      function
+      plot(theta_1, theta_2)
+      {
+        var r;
 
-          canvas.stroke();
+        r = theta_1*10;
+        var x1 = r*Math.cos(theta_1);
+        var y1 = r*Math.sin(theta_1);
+
+        r = theta_2*10;
+        var x2 = r*Math.cos(theta_2);
+        var y2 = r*Math.sin(theta_2);
+
+        if (Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1)) < close_enough) {
+          canvas.moveTo(x1, y1);
+          canvas.lineTo(x2, y2);
         }
+        else {
+          plot(theta_1, theta_1 + (theta_2 - theta_1)/2);
+          plot(theta_1 + (theta_2 - theta_1)/2, theta_2);
+        }
+      }
+
+      $('#draw').click(function() {
+        if (parseFloat($("#degrees").val()) == 0) 
+          alert("Degrees must be greater than 0");
+        else {
+          for (var angle=0; angle<4*360; angle+=parseFloat($("#degrees").val())) {
+            var old_theta;            
+            var theta = 2*Math.PI*angle/360;
+
+            if (angle > 0)
+              plot(old_theta, theta);
+            old_theta = theta;
+          }
+        }
+        canvas.stroke();
       });
       $("#erase").click(function() {
         canvas.clearRect(-width, -height, width*2, height*2);
